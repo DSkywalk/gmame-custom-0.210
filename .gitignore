@@ -30,3 +30,8 @@ README.md
 dist.mak
 makefile
 uismall.bdf
+build
+*.7z
+mame64
+plugin.ini
+ui.ini
