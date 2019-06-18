@@ -191,6 +191,13 @@ const options_entry emu_options::s_option_entries[] =
 	{ OPTION_COMM_REMOTE_PORT,                           "15112",     OPTION_STRING,     "remote port to connect to" },
 	{ OPTION_COMM_FRAME_SYNC,                            "0",         OPTION_BOOLEAN,    "sync frames" },
 
+	// ages custom configs
+	{ NULL,                                              NULL,        OPTION_HEADER,     "CUSTOM RGBux OPTIONS" },
+	{ OPTION_CUSTOM_DIFFICULTY ";cdif",                  "none",      OPTION_STRING,     "custom game base difficulty (easiest|easy|medium|hard|hardest) (if not set by user in cfg)" },
+	{ OPTION_CUSTOMS_FORCED ";cfor", 	                 "0",         OPTION_BOOLEAN,    "force base customizations (ignore any cfg value) " },
+
+
+
 	// misc options
 	{ nullptr,                                           nullptr,     OPTION_HEADER,     "CORE MISC OPTIONS" },
 	{ OPTION_DRC,                                        "1",         OPTION_BOOLEAN,    "enable DRC CPU core if available" },

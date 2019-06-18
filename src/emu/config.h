@@ -64,6 +64,10 @@ public:
 private:
 	int load_xml(emu_file &file, config_type which_type);
 	int save_xml(emu_file &file, config_type which_type);
+	
+	// ages custom cfg
+	void custom_settings();
+	void config_customize_difficulty(const char * name_difficulty);
 
 	// internal state
 	running_machine &   m_machine;                  // reference to our machine

@@ -86,11 +86,20 @@ int configuration_manager::load_settings()
 	if (filerr == osd_file::error::NONE)
 		load_xml(file, config_type::DEFAULT);
 
+	/* ages custom dips loading - before read game cfg */
+	if (! machine().options().customs_forced())
+		custom_settings();
+
+
 	/* finally, load the game-specific file */
 	filerr = file.open(machine().basename(), ".cfg");
 	osd_printf_verbose("Attempting to parse: %s.cfg\n",machine().basename());
 	if (filerr == osd_file::error::NONE)
 		loaded = load_xml(file, config_type::GAME);
+
+	/* ages custom dips - after read game cfg */
+	if (machine().options().customs_forced())
+		custom_settings();
 
 	/* loop over all registrants and call their final function */
 	for (auto type : m_typelist)
@@ -264,3 +273,194 @@ int configuration_manager::save_xml(emu_file &file, config_type which_type)
 	/* free and get out of here */
 	return 1;
 }
+
+
+/***************************************************************************
+ *   FUNCTION AGES MOD
+ **************************************************************************/
+
+/** Difficult level (enumeration). */
+/*@{*/
+#define DIFFICULTY_NONE -1 /**< Don't change the value stored in the .cfg file. */
+#define DIFFICULTY_EASIEST 0
+#define DIFFICULTY_EASY 1
+#define DIFFICULTY_MEDIUM 2
+#define DIFFICULTY_HARD 3
+#define DIFFICULTY_HARDEST 4
+/*@}*/
+
+const char* NAME_EASIEST[] = { "Easiest", "Very Easy", 0 };
+const char* NAME_EASY[] = { "Easy", "Easier", "Easy?", 0 };
+const char* NAME_MEDIUM[] = { "Medium", "Normal", "Normal?", 0 };
+const char* NAME_HARD[] = { "Hard", "Harder", "Difficult", "Hard?", 0 };
+const char* NAME_HARDEST[] = { "Hardest", "Very Hard", "Very Difficult", 0 };
+
+const float LEVEL_MULT[] = { 1/4, 2/4, 3/4, 2/4, 1/4 };
+
+void configuration_manager::custom_settings()
+{
+	//config_customize_language(context, list);
+	config_customize_difficulty(machine().options().custom_difficulty());
+	//config_customize_freeplay(machine().m_portlist);
+}
+
+void set_difficulty(int misc_difficulty, ioport_field &found, int steps) {
+	
+	osd_printf_warning("emu:custom_difficulty: Found Dip:%s, m:%i, df:%i (%i/%i) dl: %i s: %i\n", 
+															found.name(), found.mask(),
+															found.defvalue(), found.minval(), 
+															found.maxval(), found.delta(), steps
+														 );
+	const char** names;
+	const char** names_secondary;
+
+	// get the list of names
+	switch (misc_difficulty) {
+	case DIFFICULTY_NONE :
+		// nothing to do
+		return;
+	case DIFFICULTY_EASIEST :
+		names = NAME_EASIEST;
+		names_secondary = NAME_EASY;
+		break;
+	case DIFFICULTY_EASY :
+		names = NAME_EASY;
+		names_secondary = 0;
+		break;
+	case DIFFICULTY_MEDIUM :
+		names = NAME_MEDIUM;
+		names_secondary = NAME_EASY;
+		break;
+	case DIFFICULTY_HARD :
+		names = NAME_HARD;
+		names_secondary = 0;
+		break;
+	case DIFFICULTY_HARDEST :
+		names = NAME_HARDEST;
+		names_secondary = NAME_HARD;
+		break;
+	}
+
+	int level = -1;
+	for(int j=0;names[j] && level == -1;++j)
+		for (ioport_setting const &iop : found.settings())
+		{
+			osd_printf_debug("set: name=\"%s\" number=\"%u\"\n", util::xml::normalize_string(iop.name()), iop.value());
+			if (strcmp(names[j], iop.name())==0)
+			{
+				level = iop.value();
+				osd_printf_debug("emu:custom_difficulty: Primary match Found: %s switch! set(%i)\n" , iop.name(), level);
+				break;
+			}
+			
+		}
+
+	// search a secondary match
+	if ((level == -1) && names_secondary)
+	{
+		for(int j=0;names_secondary[j] && level == -1;++j)
+			for (ioport_setting const &iop : found.settings())
+			{
+				osd_printf_debug("set: name=\"%s\" number=\"%u\"\n", util::xml::normalize_string(iop.name()), iop.value());
+				if (strcmp(names_secondary[j], iop.name())==0)
+				{
+					level = iop.value();
+					osd_printf_debug("emu:custom_difficulty: Primary match Found: %s switch! set(%i)\n" , iop.name(), level);
+					break;
+				}
+				
+			}
+
+	}
+	
+	// interpolate
+	if (level == -1)
+	{
+		switch (misc_difficulty)
+		{
+			case DIFFICULTY_EASIEST :
+				level = 0;
+				break;
+			case DIFFICULTY_EASY :
+				level = steps * 1 / 4;
+				printf(" %i / 4\n", steps);
+				break;
+			case DIFFICULTY_MEDIUM :
+				level = steps * 2 / 4;
+				if(level < found.defvalue())
+					level = found.defvalue();
+				printf(" %i * 2 / 4 df(%i)\n", steps, found.defvalue());
+				break;
+			case DIFFICULTY_HARD :
+				level = steps * 3 / 4;
+				printf(" %i * 3 / 4\n", steps);
+				break;
+			case DIFFICULTY_HARDEST :
+				level = 0xff;
+				break;
+		}
+
+		for (ioport_setting const &iop : found.settings())
+		{
+			if(!level--)
+			{
+				level = iop.value();
+				osd_printf_debug("emu:custom_difficulty: interpolate Selected %s (%i - %i)\n", iop.name(), iop.value(), level);
+				break;
+			 }
+		}
+	}
+
+
+	ioport_field::user_settings settings;
+	found.get_user_settings(settings);
+	settings.value = level;
+	found.set_user_settings(settings);
+
+	osd_printf_warning("emu:custom_difficulty: %s set=%i default(%i)\n", found.name(), level, found.defvalue());
+
+}
+
+
+/**
+ * User customization of the difficulty dipswitch.
+ */
+void configuration_manager::config_customize_difficulty(const char * name_difficulty)
+{
+	int misc_difficulty = DIFFICULTY_NONE;
+	if (core_stricmp(name_difficulty, "easiest") == 0)
+		misc_difficulty = DIFFICULTY_EASIEST;
+	else if (core_stricmp(name_difficulty, "easy") == 0)
+		misc_difficulty = DIFFICULTY_EASY;
+	else if (core_stricmp(name_difficulty, "medium") == 0)
+		misc_difficulty = DIFFICULTY_MEDIUM;
+	else if (core_stricmp(name_difficulty, "hard") == 0)
+		misc_difficulty = DIFFICULTY_HARD;
+	else if (core_stricmp(name_difficulty, "hardest") == 0)
+		misc_difficulty = DIFFICULTY_HARDEST;
+
+	if(misc_difficulty ==  DIFFICULTY_NONE)
+		return;
+
+	osd_printf_debug("emu:custom_difficulty: dif:%s(%i)\n", name_difficulty, misc_difficulty);
+
+	for (auto &port : machine().ioport().ports())
+		for (ioport_field &field : port.second->fields())
+		{
+			if (field.type() != IPT_DIPSWITCH)
+				continue;
+
+			const char *name = field.name();
+			if (name != NULL && strcmp(name, "Difficulty") == 0)
+			{   
+				int steps = field.settings().count() - 1;
+				set_difficulty(misc_difficulty, field, steps);
+				return ;
+			}
+		}
+
+	osd_printf_warning("emu:custom_difficulty: dip switch not found");
+	return;
+   
+}
+
