@@ -122,7 +122,10 @@ void menu_main::populate(float &customtop, float &custombottom)
 		item_append(_("External DAT View"), "", 0, (void *)EXTERNAL_DATS);
 
 	item_append(menu_item_type::SEPARATOR);
-
+	
+  // DISABLE SELECT NEW MACHINE & FAVORITES
+  if (!machine().options().skip_gameinfo())
+  {
 	if (!mame_machine_manager::instance()->favorite().is_favorite(machine()))
 		item_append(_("Add To Favorites"), "", 0, (void *)ADD_FAVORITE);
 	else
@@ -133,6 +136,7 @@ void menu_main::populate(float &customtop, float &custombottom)
 //  item_append(_("Quit from Machine"), nullptr, 0, (void *)QUIT_GAME);
 
 	item_append(_("Select New Machine"), "", 0, (void *)SELECT_GAME);
+   }
 }
 
 menu_main::~menu_main()

@@ -1417,7 +1417,8 @@ render_primitive_list &render_target::get_primitives()
 		}
 
 	// if we are not in the running stage, draw an outer box
-	else
+	// DISABLE WHITE BORDER
+	else if ( !m_manager.machine().options().skip_gameinfo() )
 	{
 		render_primitive *prim = list.alloc(render_primitive::QUAD);
 		set_render_bounds_xy(prim->bounds, 0.0f, 0.0f, (float)m_width, (float)m_height);
