@@ -509,7 +509,7 @@ void exprraid_state::exprraid(machine_config &config)
 //  screen.set_vblank_time(ATTOSECONDS_IN_USEC(2500)); /* not accurate */
 //  screen.set_size(32*8, 32*8);
 //  screen.set_visarea(0*8, 32*8-1, 1*8, 31*8-1);
-	screen.set_raw(XTAL(12'000'000)/2, 384, 0, 256, 262, 8, 256-8); /* not accurate */
+	screen.set_raw(XTAL(12'000'000)/2, 384, 8, 248, 262, 8, 256-8); /* not accurate */
 	screen.set_screen_update(FUNC(exprraid_state::screen_update_exprraid));
 	screen.set_palette(m_palette);
 

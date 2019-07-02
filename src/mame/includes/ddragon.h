@@ -45,6 +45,7 @@ public:
 	}
 
 	void ddragon(machine_config &config);
+	void ddragoncut(machine_config &config);
 	void ddragon6809(machine_config &config);
 	void ddragonb(machine_config &config);
 	void ddragonba(machine_config &config);
@@ -173,6 +174,7 @@ public:
 	}
 
 	void darktowr(machine_config &config);
+	void tstrikecut(machine_config &config);
 
 	void init_darktowr();
 

@@ -266,7 +266,7 @@ void jailbrek_state::jailbrek(machine_config &config)
 	/* basic machine hardware */
 	KONAMI1(config, m_maincpu, MASTER_CLOCK/12);
 	m_maincpu->set_addrmap(AS_PROGRAM, &jailbrek_state::jailbrek_map);
-	m_maincpu->set_periodic_int(FUNC(jailbrek_state::interrupt_nmi), attotime::from_hz(500)); /* ? */
+	m_maincpu->set_periodic_int(FUNC(jailbrek_state::interrupt_nmi), attotime::from_hz(480)); /* ? */   //MAMEFX
 
 	WATCHDOG_TIMER(config, "watchdog");
 

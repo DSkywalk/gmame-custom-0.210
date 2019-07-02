@@ -1190,7 +1190,7 @@ void astrocde_state::astrocade_base(machine_config &config)
 
 	SCREEN(config, m_screen, SCREEN_TYPE_RASTER);
 	m_screen->set_raw(ASTROCADE_CLOCK, 455, 0, 352, 262, 0, 240);
-	m_screen->set_default_position(1.1, 0.0, 1.18, -0.018);    /* clip out borders */
+	//m_screen->set_default_position(1.1, 0.0, 1.18, -0.018);    /* clip out borders */ // MAMEFX
 	m_screen->set_screen_update(FUNC(astrocde_state::screen_update_astrocde));
 	m_screen->set_palette(m_palette);
 }

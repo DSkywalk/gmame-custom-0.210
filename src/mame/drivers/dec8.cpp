@@ -1963,8 +1963,8 @@ void dec8_state::lastmisn(machine_config &config)
 //  m_screen->set_refresh_hz(58);
 //  m_screen->set_vblank_time(ATTOSECONDS_IN_USEC(529)); /* 58Hz, 529us Vblank duration */
 //  m_screen->set_size(32*8, 32*8);
-//  m_screen->set_visarea(0*8, 32*8-1, 1*8, 31*8-1);
 	set_screen_raw_params_data_east(config);
+	m_screen->set_visarea(1*8, 31*8-1, 1*8, 31*8-1);
 	m_screen->set_screen_update(FUNC(dec8_state::screen_update_lastmisn));
 	m_screen->set_palette(m_palette);
 

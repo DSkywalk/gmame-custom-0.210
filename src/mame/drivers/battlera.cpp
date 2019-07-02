@@ -274,7 +274,7 @@ void battlera_state::battlera(machine_config &config)
 
 	/* video hardware */
 	SCREEN(config, m_screen, SCREEN_TYPE_RASTER);
-	m_screen->set_raw(MAIN_CLOCK, huc6260_device::WPF, 64, 64 + 1024 + 64, huc6260_device::LPF, 18, 18 + 242);
+	m_screen->set_raw(MAIN_CLOCK, huc6260_device::WPF, 128, 64 + 1024 + 64, huc6260_device::LPF, 16, 16 + 240);
 	m_screen->set_screen_update(FUNC(battlera_state::screen_update));
 	m_screen->set_palette(m_huc6260);
 

@@ -1291,7 +1291,7 @@ void btime_state::btime(machine_config &config)
 
 	/* video hardware */
 	SCREEN(config, m_screen, SCREEN_TYPE_RASTER);
-	m_screen->set_raw(HCLK, 384, 8, 248, 272, 8, 248);
+	m_screen->set_raw(HCLK, 384, 0, 256, 272, 8, 248);   // MAMEFX
 	m_screen->set_screen_update(FUNC(btime_state::screen_update_btime));
 	m_screen->set_palette(m_palette);
 

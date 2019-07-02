@@ -787,6 +787,7 @@ void liberate_state::liberate(machine_config &config)
 {
 	liberate_base(config);
 	m_maincpu->set_addrmap(AS_OPCODES, &liberate_state::decrypted_opcodes_map);
+	subdevice<screen_device>("screen")->set_visarea(2*8, 31*8-1, 2*8, 30*8-1);
 }
 
 void liberate_state::liberatb(machine_config &config)

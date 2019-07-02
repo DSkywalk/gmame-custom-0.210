@@ -153,7 +153,7 @@ enum
 void h6280_device::internal_map(address_map &map)
 {
 	map(0x1fe800, 0x1fe80f).mirror(0x3f0).rw(FUNC(h6280_device::io_buffer_r), FUNC(h6280_device::psg_w));
-	map(0x1fec00, 0x1fec01).mirror(0x3fe).rw(FUNC(h6280_device::timer_r), FUNC(h6280_device::timer_w));
+	map(0x1fec00, 0x1fec01).mirror(0x3fe).r(FUNC(h6280_device::timer_r)).nopw(); // MAMEFX - fix various sound issues
 	map(0x1ff000, 0x1ff000).mirror(0x3ff).rw(FUNC(h6280_device::port_r), FUNC(h6280_device::port_w));
 	map(0x1ff400, 0x1ff403).mirror(0x3fc).rw(FUNC(h6280_device::irq_status_r), FUNC(h6280_device::irq_status_w));
 }

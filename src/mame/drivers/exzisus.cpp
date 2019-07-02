@@ -254,7 +254,7 @@ void exzisus_state::exzisus(machine_config &config)
 	screen.set_refresh_hz(60);
 	screen.set_vblank_time(ATTOSECONDS_IN_USEC(0));
 	screen.set_size(32*8, 32*8);
-	screen.set_visarea(0*8, 32*8-1, 2*8, 30*8-1);
+	screen.set_visarea(1*8, 31*8-1, 2*8, 30*8-1);
 	screen.set_screen_update(FUNC(exzisus_state::screen_update));
 	screen.set_palette(m_palette);
 

@@ -306,7 +306,7 @@ void crimfght_state::crimfght(machine_config &config)
 	m_maincpu->set_addrmap(AS_PROGRAM, &crimfght_state::crimfght_map);
 	m_maincpu->line().set(FUNC(crimfght_state::banking_callback));
 
-	Z80(config, m_audiocpu, XTAL(3'579'545)); /* verified on pcb */
+	Z80(config, m_audiocpu, XTAL(3'579'545)*2); /* verified on pcb */ //MAMEFX
 	m_audiocpu->set_addrmap(AS_PROGRAM, &crimfght_state::crimfght_sound_map);
 	m_audiocpu->set_irq_acknowledge_callback(FUNC(crimfght_state::audiocpu_irq_ack));
 
