@@ -66,6 +66,8 @@ public:
 
 	uint8_t      m_fixed_layer_source;
 	uint8_t      m_fixed_layer_bank_type;
+	
+	uint8_t      m_neogeo_raster_hack;
 
 	emu_timer  *m_auto_animation_timer;
 	emu_timer  *m_sprite_line_timer;
