@@ -1028,7 +1028,7 @@ void mystwarr_state::metamrph(machine_config &config)
 	m_maincpu->set_addrmap(AS_PROGRAM, &mystwarr_state::metamrph_map);
 	subdevice<timer_device>("scantimer")->set_callback(FUNC(mystwarr_state::metamrph_interrupt));
 
-	m_k053252->set_offsets(24, 15);
+	m_k053252->set_offsets(24, 16+1);  // MAMEFX
 
 	K053250(config, m_k053250_1, 0, m_palette, m_screen, -7, 0);
 
@@ -1085,6 +1085,8 @@ void mystwarr_state::gaiapols(machine_config &config)
 	m_maincpu->set_vblank_int("screen", FUNC(mystwarr_state::ddd_interrupt));
 	config.device_remove("scantimer");
 
+	config.device_remove("k053252");        // MAMEFX
+	K053252(config, m_k053252, 16000000/2); // MAMEFX
 	m_k053252->set_offsets(40, 16);
 
 	K054000(config, "k054000", 0);

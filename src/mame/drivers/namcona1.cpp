@@ -1068,6 +1068,30 @@ void xday2_namcona2_state::xday2(machine_config &config)
 	MSM6242(config, "rtc", XTAL(32'768));
 }
 
+void namcona1_state::namcona1cut(machine_config &config)
+{
+	namcona1(config);
+	m_screen->set_visarea(8, 38*8-1-9, 4*8, 32*8-1);
+}
+
+void namcona2_state::namcona2cut(machine_config &config)
+{
+	namcona2(config);
+	m_screen->set_visarea(8, 38*8-1-9, 4*8, 32*8-1);
+}
+
+void namcona1_state::tinklpit(machine_config &config)
+{
+	namcona1(config);
+	m_screen->set_visarea(4, 38*8-1-5, 4*8, 32*8-1);
+}
+
+void namcona1_state::fghtatck(machine_config &config)
+{
+	namcona1(config);
+	m_screen->set_visarea(9, 38*8-1-9, 4*8, 32*8-1);
+}
+
  /* NA-1 Hardware */
 void namcona1_state::init_bkrtmaq()         { m_gametype = NAMCO_BKRTMAQ; }
 void namcona1_state::init_cgangpzl()        { m_gametype = NAMCO_CGANGPZL; }
@@ -1427,25 +1451,25 @@ ROM_END
 
 // NA-1 (C69 MCU)
 GAME(1992, bkrtmaq,    0,        namcona1, namcona1_quiz,  namcona1_state, init_bkrtmaq,  ROT0, "Namco", "Bakuretsu Quiz Ma-Q Dai Bouken (Japan)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL)
-GAME(1992, cgangpzl,   0,        namcona1,  namcona1_joy,  namcona1_state, init_cgangpzl, ROT0, "Namco", "Cosmo Gang the Puzzle (US)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL)
-GAME(1992, cgangpzlj,  cgangpzl, namcona1,  namcona1_joy,  namcona1_state, init_cgangpzl, ROT0, "Namco", "Cosmo Gang the Puzzle (Japan)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL)
-GAME(1992, exvania,    0,        namcona1,  namcona1_joy,  namcona1_state, init_exvania,  ROT0, "Namco", "Exvania (World)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL)
-GAME(1992, exvaniaj,   exvania,  namcona1,  namcona1_joy,  namcona1_state, init_exvania,  ROT0, "Namco", "Exvania (Japan)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL)
-GAME(1992, fghtatck,   0,        namcona1,  namcona1_joy,  namcona1_state, init_fa,       ROT90,"Namco", "Fighter & Attacker (US)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL)
-GAME(1992, fa,         fghtatck, namcona1,  namcona1_joy,  namcona1_state, init_fa,       ROT90,"Namco", "F/A (Japan)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL)
+GAME(1992, cgangpzl,   0,        namcona1cut,  namcona1_joy,  namcona1_state, init_cgangpzl, ROT0, "Namco", "Cosmo Gang the Puzzle (US)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL)
+GAME(1992, cgangpzlj,  cgangpzl, namcona1cut,  namcona1_joy,  namcona1_state, init_cgangpzl, ROT0, "Namco", "Cosmo Gang the Puzzle (Japan)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL)
+GAME(1992, exvania,    0,        namcona1cut,  namcona1_joy,  namcona1_state, init_exvania,  ROT0, "Namco", "Exvania (World)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL)
+GAME(1992, exvaniaj,   exvania,  namcona1cut,  namcona1_joy,  namcona1_state, init_exvania,  ROT0, "Namco", "Exvania (Japan)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL)
+GAME(1992, fghtatck,   0,        fghtatck,  namcona1_joy,  namcona1_state, init_fa,       ROT90,"Namco", "Fighter & Attacker (US)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL)
+GAME(1992, fa,         fghtatck, fghtatck,  namcona1_joy,  namcona1_state, init_fa,       ROT90,"Namco", "F/A (Japan)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL)
 GAME(1992, swcourt,    0,        namcona1,  namcona1_joy,  namcona1_state, init_swcourt,  ROT0, "Namco", "Super World Court (World)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL)
 GAME(1992, swcourtj,   swcourt,  namcona1,  namcona1_joy,  namcona1_state, init_swcourt,  ROT0, "Namco", "Super World Court (Japan)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL)
 GAME(1994, swcourtb,   swcourt,  namcona1,  namcona1_joy,  namcona1_state, init_swcourtb, ROT0, "bootleg (Playmark?)", "Super World Court (World, bootleg)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL)
 GAME(1993, emeraldaj,  emeralda, namcona1,  namcona1_joy,  namcona1_state, init_emeraldj, ROT0, "Namco", "Emeraldia (Japan Version B)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL) /* Parent is below on NA-2 Hardware */
 GAME(1993, emeraldaja, emeralda, namcona1,  namcona1_joy,  namcona1_state, init_emeraldj, ROT0, "Namco", "Emeraldia (Japan)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL) /* Parent is below on NA-2 Hardware */
-GAME(1993, tinklpit,   0,        namcona1,  namcona1_joy,  namcona1_state, init_tinklpit, ROT0, "Namco", "Tinkle Pit (Japan)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL)
+GAME(1993, tinklpit,   0,        tinklpit,  namcona1_joy,  namcona1_state, init_tinklpit, ROT0, "Namco", "Tinkle Pit (Japan)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL)
 
 // NA-2 (C70 MCU)
-GAME(1992, knckhead,   0,        namcona2,  namcona1_joy,  namcona2_state, init_knckhead, ROT0, "Namco", "Knuckle Heads (World)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL)
-GAME(1992, knckheadj,  knckhead, namcona2,  namcona1_joy,  namcona2_state, init_knckhead, ROT0, "Namco", "Knuckle Heads (Japan)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL)
-GAME(1992, knckheadjp, knckhead, namcona2,  namcona1_joy,  namcona2_state, init_knckhead, ROT0, "Namco", "Knuckle Heads (Japan, Prototype?)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL)
+GAME(1992, knckhead,   0,        namcona2cut,  namcona1_joy,  namcona2_state, init_knckhead, ROT0, "Namco", "Knuckle Heads (World)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL)
+GAME(1992, knckheadj,  knckhead, namcona2cut,  namcona1_joy,  namcona2_state, init_knckhead, ROT0, "Namco", "Knuckle Heads (Japan)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL)
+GAME(1992, knckheadjp, knckhead, namcona2cut,  namcona1_joy,  namcona2_state, init_knckhead, ROT0, "Namco", "Knuckle Heads (Japan, Prototype?)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL)
 GAME(1993, emeralda,   0,        namcona2,  namcona1_joy,  namcona2_state, init_emeralda, ROT0, "Namco", "Emeraldia (World)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL)
-GAME(1993, numanath,   0,        namcona2,  namcona1_joy,  namcona2_state, init_numanath, ROT0, "Namco", "Numan Athletics (World)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL)
-GAME(1993, numanathj,  numanath, namcona2,  namcona1_joy,  namcona2_state, init_numanath, ROT0, "Namco", "Numan Athletics (Japan)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL)
+GAME(1993, numanath,   0,        namcona2cut,  namcona1_joy,  namcona2_state, init_numanath, ROT0, "Namco", "Numan Athletics (World)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL)
+GAME(1993, numanathj,  numanath, namcona2cut,  namcona1_joy,  namcona2_state, init_numanath, ROT0, "Namco", "Numan Athletics (Japan)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL)
 GAME(1993, quiztou,    0,        namcona2,  namcona1_quiz, namcona2_state, init_quiztou,  ROT0, "Namco", "Nettou! Gekitou! Quiztou!! (Japan)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL)
 GAME(1995, xday2,      0,        xday2,     namcona1_joy,  xday2_namcona2_state, init_xday2, ROT0, "Namco", "X-Day 2 (Japan)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL)

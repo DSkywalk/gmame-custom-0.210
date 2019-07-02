@@ -311,7 +311,7 @@ TIMER_DEVICE_CALLBACK_MEMBER(namconb1_state::scantimer)
 
 	if (scanline == posirq_scanline)
 	{
-		m_screen->update_partial(posirq_scanline);
+		m_screen->update_partial(posirq_scanline - 1); // MAMEFX
 
 		if (m_pos_irq_level != 0)
 			m_maincpu->set_input_line(m_pos_irq_level, ASSERT_LINE);

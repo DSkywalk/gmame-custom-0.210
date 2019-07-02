@@ -47,6 +47,9 @@ public:
 	void namcona_base(machine_config &config);
 	void c69(machine_config &config);
 	void namcona1(machine_config &config);
+	void namcona1cut(machine_config &config);
+	void tinklpit(machine_config &config);
+	void fghtatck(machine_config &config);
 
 	void init_bkrtmaq();
 	void init_fa();
@@ -187,6 +190,7 @@ public:
 
 	void c70(machine_config &config);
 	void namcona2(machine_config &config);
+	void namcona2cut(machine_config &config);
 
 	void init_knckhead();
 	void init_emeralda();
