@@ -472,7 +472,7 @@ void sprcros2_state::sprcros2(machine_config &config)
 	/* video hardware */
 	screen_device &screen(SCREEN(config, "screen", SCREEN_TYPE_RASTER));
 	screen.set_screen_update(FUNC(sprcros2_state::screen_update));
-	screen.set_raw(MAIN_CLOCK/2, 343, 8, 256-8, 262, 16, 240); // TODO: Wrong screen parameters
+	screen.set_raw(MAIN_CLOCK/2, 343, 16, 256-16, 262, 16, 240); // TODO: Wrong screen parameters
 	screen.set_palette("palette");
 
 	GFXDECODE(config, m_gfxdecode, "palette", gfx_sprcros2);

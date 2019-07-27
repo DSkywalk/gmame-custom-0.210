@@ -2147,7 +2147,7 @@ void tmnt_state::lgtnfght(machine_config &config)
 	screen.set_refresh_hz(60);
 	screen.set_vblank_time(ATTOSECONDS_IN_USEC(2500)); /* not accurate */
 	screen.set_size(64*8, 32*8);
-	screen.set_visarea(12*8, (64-12)*8-1, 2*8, 30*8-1);
+	screen.set_visarea(14*8, (64-15)*8-1, 2*8, 30*8-1);
 	screen.set_screen_update(FUNC(tmnt_state::screen_update_lgtnfght));
 	screen.set_palette(m_palette);
 
@@ -2405,7 +2405,7 @@ void tmnt_state::tmnt2(machine_config &config)
 	screen.set_refresh_hz(60);
 	screen.set_vblank_time(ATTOSECONDS_IN_USEC(2500)); /* not accurate */
 	screen.set_size(64*8, 32*8);
-	screen.set_visarea(13*8, (64-13)*8-1, 2*8, 30*8-1);
+	screen.set_visarea(14*8, (64-14)*8-1, 2*8, 30*8-1);
 	screen.set_screen_update(FUNC(tmnt_state::screen_update_tmnt2));
 	screen.set_palette(m_palette);
 

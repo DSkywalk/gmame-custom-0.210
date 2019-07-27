@@ -3727,7 +3727,14 @@ void snk_state::sgladiat(machine_config &config)
 	/* visible area is correct. Debug info is shown in the black bars at the sides
 	   of the screen when the Debug dip switch is on */
 
+    subdevice<screen_device>("screen")->set_visarea(2*8, 34*8-1, 1*8, 28*8-1);
 	MCFG_VIDEO_START_OVERRIDE(snk_state,sgladiat)
+}
+
+void snk_state::madcrash(machine_config &config)
+{
+	vangrd2(config);
+	subdevice<screen_device>("screen")->set_visarea(2*8, 34*8-1, 1*8, 28*8-1);
 }
 
 void snk_state::hal21(machine_config &config)
@@ -6356,7 +6363,7 @@ ROM_END
 
 GAME( 1983, marvins,   0,        marvins,   marvins,   snk_state, empty_init, ROT270, "SNK",     "Marvin's Maze", 0 )
 GAME( 1984, vangrd2,   0,        vangrd2,   vangrd2,   snk_state, empty_init, ROT270, "SNK",     "Vanguard II", 0 )
-GAME( 1984, madcrash,  0,        vangrd2,   madcrash,  snk_state, empty_init, ROT0,   "SNK",     "Mad Crasher", 0 )
+GAME( 1984, madcrash,  0,        madcrash,  madcrash,  snk_state, empty_init, ROT0,   "SNK",     "Mad Crasher", 0 )
 GAME( 1984, madcrush,  madcrash, madcrush,  madcrash,  snk_state, empty_init, ROT0,   "SNK",     "Mad Crusher (Japan)", 0 )
 
 GAME( 1984, jcross,    0,        jcross,    jcross,    snk_state, empty_init, ROT270, "SNK",     "Jumping Cross (set 1)", 0 )

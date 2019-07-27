@@ -61,6 +61,7 @@ public:
 	void ikari(machine_config &config);
 	void sgladiat(machine_config &config);
 	void madcrush(machine_config &config);
+	void madcrash(machine_config &config);
 
 	DECLARE_CUSTOM_INPUT_MEMBER(marvins_sound_busy);
 	DECLARE_CUSTOM_INPUT_MEMBER(snk_sound_busy);

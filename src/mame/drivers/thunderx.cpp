@@ -644,7 +644,7 @@ void thunderx_state::scontra(machine_config &config)
 	m_maincpu->set_addrmap(AS_PROGRAM, &thunderx_state::scontra_map);
 	m_maincpu->set_vblank_int("screen", FUNC(thunderx_state::vblank_interrupt));
 
-	Z80(config, m_audiocpu, XTAL(3'579'545)); /* verified on pcb */
+	Z80(config, m_audiocpu, XTAL(3'579'545)*2); /* verified on pcb */
 	m_audiocpu->set_addrmap(AS_PROGRAM, &thunderx_state::scontra_sound_map);
 
 	ADDRESS_MAP_BANK(config, m_bank5800).set_map(&thunderx_state::scontra_bank5800_map).set_options(ENDIANNESS_BIG, 8, 12, 0x800);
@@ -656,7 +656,7 @@ void thunderx_state::scontra(machine_config &config)
 	screen.set_refresh_hz(59.17); /* verified on pcb */
 	screen.set_vblank_time(ATTOSECONDS_IN_USEC(0));
 	screen.set_size(64*8, 32*8);
-	screen.set_visarea(12*8, (64-12)*8-1, 2*8, 30*8-1); /* verified on scontra and thunderx PCBs */
+	screen.set_visarea(13*8, (64-13)*8-1, 2*8, 30*8-1); /* verified on scontra and thunderx PCBs */
 	screen.set_screen_update(FUNC(thunderx_state::screen_update));
 	screen.set_palette(m_palette);
 
@@ -701,11 +701,14 @@ void thunderx_state::thunderx(machine_config &config)
 	m_maincpu->set_addrmap(AS_PROGRAM, &thunderx_state::thunderx_map);
 	m_maincpu->line().set(FUNC(thunderx_state::banking_callback));
 
+	config.device_remove("audiocpu");    // MAMEFX
+	Z80(config, m_audiocpu, XTAL(3'579'545)); /* verified on pcb */    // MAMEFX
 	m_audiocpu->set_addrmap(AS_PROGRAM, &thunderx_state::thunderx_sound_map);
 
 	m_bank5800->set_map(&thunderx_state::thunderx_bank5800_map).set_addr_width(13);
 
 	config.device_remove("k007232");
+	subdevice<screen_device>("screen")->set_visarea(14*8, (64-14)*8-1, 2*8, 30*8-1 );
 }
 
 void thunderx_state::gbusters(machine_config &config)
@@ -718,6 +721,7 @@ void thunderx_state::gbusters(machine_config &config)
 	m_maincpu->line().set(FUNC(thunderx_state::banking_callback));
 
 	m_k052109->set_tile_callback(FUNC(thunderx_state::gbusters_tile_callback), this);
+	subdevice<screen_device>("screen")->set_visarea(14*8, (64-14)*8-1, 2*8, 30*8-1 );
 }
 
 

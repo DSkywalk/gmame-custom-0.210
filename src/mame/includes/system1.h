@@ -87,6 +87,12 @@ public:
 	void sys1piox_315_5177(machine_config &config);
 	void sys1piox_315_5155(machine_config &config);
 	void sys2rowxb(machine_config &config);
+	void brain(machine_config &config);
+	void gardia(machine_config &config);
+	void swat(machine_config &config);
+	void tokisens(machine_config &config);
+	void ufosensi(machine_config &config);
+	void wboy(machine_config &config);
 
 	void init_bank00();
 	void init_bank0c();

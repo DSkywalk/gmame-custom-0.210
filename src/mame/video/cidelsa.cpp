@@ -155,7 +155,7 @@ void cidelsa_state::destryer_video(machine_config &config)
 	SPEAKER(config, "mono").front_center();
 	CDP1869(config, m_vis, DESTRYER_CHR2, &cidelsa_state::cidelsa_page_ram);
 	screen_device &screen(m_vis->add_pal_screen(config, SCREEN_TAG, DESTRYER_CHR2));
-	screen.set_default_position(1.226, 0.012, 1.4, 0.044);
+	screen.set_default_position(1.0, 0.0, 1.0, 0.0);
 	m_vis->set_pcb_read_callback(FUNC(cidelsa_state::cidelsa_pcb_r));
 	m_vis->set_char_ram_read_callback(FUNC(cidelsa_state::cidelsa_charram_r));
 	m_vis->set_char_ram_write_callback(FUNC(cidelsa_state::cidelsa_charram_w));
@@ -169,7 +169,7 @@ void cidelsa_state::altair_video(machine_config &config)
 	SPEAKER(config, "mono").front_center();
 	CDP1869(config, m_vis, ALTAIR_CHR2, &cidelsa_state::cidelsa_page_ram);
 	screen_device &screen(m_vis->add_pal_screen(config, SCREEN_TAG, ALTAIR_CHR2));
-	screen.set_default_position(1.226, 0.012, 1.4, 0.044);
+	screen.set_default_position(1.0, 0.0, 1.0, 0.0);
 	m_vis->set_pcb_read_callback(FUNC(cidelsa_state::cidelsa_pcb_r));
 	m_vis->set_char_ram_read_callback(FUNC(cidelsa_state::cidelsa_charram_r));
 	m_vis->set_char_ram_write_callback(FUNC(cidelsa_state::cidelsa_charram_w));
@@ -183,7 +183,7 @@ void draco_state::draco_video(machine_config &config)
 	SPEAKER(config, "mono").front_center();
 	CDP1869(config, m_vis, DRACO_CHR2, &draco_state::draco_page_ram);
 	screen_device &screen(m_vis->add_pal_screen(config, SCREEN_TAG, DRACO_CHR2));
-	screen.set_default_position(1.226, 0.012, 1.360, 0.024);
+	screen.set_default_position(1.0, 0.0, 1.0, 0.0);
 	m_vis->set_pcb_read_callback(FUNC(draco_state::draco_pcb_r));
 	m_vis->set_char_ram_read_callback(FUNC(draco_state::draco_charram_r));
 	m_vis->set_char_ram_write_callback(FUNC(draco_state::draco_charram_w));

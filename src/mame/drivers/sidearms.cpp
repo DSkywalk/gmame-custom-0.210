@@ -633,15 +633,15 @@ void sidearms_state::sidearms(machine_config &config)
 
 	ym2203_device &ym1(YM2203(config, "ym1", 4000000));
 	ym1.irq_handler().set_inputline(m_audiocpu, 0);
-	ym1.add_route(0, "mono", 0.15);
-	ym1.add_route(1, "mono", 0.15);
-	ym1.add_route(2, "mono", 0.15);
+	ym1.add_route(0, "mono", 0.30);
+	ym1.add_route(1, "mono", 0.30);
+	ym1.add_route(2, "mono", 0.30);
 	ym1.add_route(3, "mono", 0.25);
 
 	ym2203_device &ym2(YM2203(config, "ym2", 4000000));
-	ym2.add_route(0, "mono", 0.15);
-	ym2.add_route(1, "mono", 0.15);
-	ym2.add_route(2, "mono", 0.15);
+	ym2.add_route(0, "mono", 0.30);
+	ym2.add_route(1, "mono", 0.30);
+	ym2.add_route(2, "mono", 0.30);
 	ym2.add_route(3, "mono", 0.25);
 }
 

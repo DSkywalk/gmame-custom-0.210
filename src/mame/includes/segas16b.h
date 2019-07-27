@@ -89,6 +89,9 @@ public:
 	void system16b_fd1094(machine_config &config);
 	void fpointbl(machine_config &config);
 	void lockonph(machine_config &config);
+	void aurail(machine_config &config);
+	void riotcity(machine_config &config);
+	void wb3(machine_config &config);
 
 	// ROM board-specific driver init
 	void init_generic_5521();

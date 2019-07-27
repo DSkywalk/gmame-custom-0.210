@@ -2629,7 +2629,7 @@ void ssv_state::drifto94(machine_config &config)
 	NVRAM(config, "nvram", nvram_device::DEFAULT_ALL_0);
 
 	/* video hardware */
-	m_screen->set_visarea(0, (0xcd-0x25)*2-1, 0, (0x101-0x13)-1);
+	m_screen->set_visarea(0, (0xcd-0x25)*2-1, 0, (0x101-0x13)-1+2);    // MAMEFX
 }
 
 void ssv_state::gdfs(machine_config &config)
@@ -2824,7 +2824,8 @@ void ssv_state::dynagear(machine_config &config)
 	survarts(config);
 
 	/* video hardware */
-	m_screen->set_visarea(0, (0xd4-0x2c)*2-1, 0, (0x102 - 0x12)-1);
+	//m_screen->set_visarea(0, (0xd4-0x2c)*2-1, 0, (0x102 - 0x12)-1);
+	m_screen->set_visarea(8, 327, 0, 239);            // MAMEFX
 }
 
 void ssv_state::eaglshot(machine_config &config)
@@ -2893,7 +2894,8 @@ void ssv_state::cairblad(machine_config &config)
 	WATCHDOG_TIMER(config, "watchdog");
 
 	/* video hardware */
-	m_screen->set_visarea(0, (0xcb - 0x22)*2-1, 0, (0xfe - 0x0e)-1);
+	//m_screen->set_visarea(0, (0xcb - 0x22)*2-1, 0, (0xfe - 0x0e)-1);
+	m_screen->set_visarea(0, 335, 0, 239);        // MAMEFX
 }
 
 void ssv_state::twineag2(machine_config &config)

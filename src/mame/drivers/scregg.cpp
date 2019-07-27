@@ -281,7 +281,7 @@ void scregg_state::dommy(machine_config &config)
 
 	/* video hardware */
 	SCREEN(config, m_screen, SCREEN_TYPE_RASTER);
-	m_screen->set_raw(XTAL(12'000'000)/2, 384, 8, 248, 272, 8, 248);
+	m_screen->set_raw(XTAL(12'000'000)/2, 384, 0, 256, 272, 8, 248);     // MAMEFX
 	m_screen->set_screen_update(FUNC(scregg_state::screen_update_eggs));
 	m_screen->set_palette(m_palette);
 
@@ -309,7 +309,7 @@ void scregg_state::scregg(machine_config &config)
 
 	/* video hardware */
 	SCREEN(config, m_screen, SCREEN_TYPE_RASTER);
-	m_screen->set_raw(XTAL(12'000'000)/2, 384, 8, 248, 272, 8, 248);
+	m_screen->set_raw(XTAL(12'000'000)/2, 384, 0, 256, 272, 8, 248);     // MAMEFX
 	m_screen->set_screen_update(FUNC(scregg_state::screen_update_eggs));
 	m_screen->set_palette(m_palette);
 

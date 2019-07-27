@@ -1871,6 +1871,17 @@ void taitosj_state::kikstart(machine_config &config)
 	m_screen->set_screen_update(FUNC(taitosj_state::screen_update_kikstart));
 }
 
+void taitosj_state::junglek(machine_config &config)
+{
+	nomcu(config);
+	m_screen->set_visarea(1*8, 31*8-1, 2*8, 30*8-1);
+}
+
+void taitosj_state::sfposeid(machine_config &config)
+{
+	mcu(config);
+	m_screen->set_visarea(1*8, 31*8-1, 2*8, 30*8-1);
+}
 
 
 /***************************************************************************
@@ -2867,7 +2878,7 @@ void taitosj_state::init_junglhbr()
 
 GAME( 1981, spaceskr, 0,        nomcu,    spaceskr, taitosj_state, init_taitosj, ROT0,   "Taito Corporation", "Space Seeker", MACHINE_SUPPORTS_SAVE )
 GAME( 1981, spacecr,  0,        nomcu,    spacecr,  taitosj_state, init_spacecr, ROT90,  "Taito Corporation", "Space Cruiser", MACHINE_SUPPORTS_SAVE )
-GAME( 1982, junglek,  0,        nomcu,    junglek,  taitosj_state, init_taitosj, ROT180, "Taito Corporation", "Jungle King (Japan)", MACHINE_SUPPORTS_SAVE )
+GAME( 1982, junglek,  0,        junglek,  junglek,  taitosj_state, init_taitosj, ROT180, "Taito Corporation", "Jungle King (Japan)", MACHINE_SUPPORTS_SAVE )
 GAME( 1982, junglekas,junglek,  nomcu,    junglek,  taitosj_state, init_taitosj, ROT180, "Taito Corporation", "Jungle King (alternate sound)", MACHINE_SUPPORTS_SAVE )
 GAME( 1982, junglekj2,junglek,  nomcu,    junglek,  taitosj_state, init_taitosj, ROT180, "Taito Corporation", "Jungle King (Japan, earlier)", MACHINE_SUPPORTS_SAVE )
 GAME( 1982, jungleh,  junglek,  nomcu,    junglek,  taitosj_state, init_taitosj, ROT180, "Taito America Corporation", "Jungle Hunt (US)", MACHINE_SUPPORTS_SAVE )
@@ -2887,6 +2898,6 @@ GAME( 1983, tinstar,  0,        mcu,      tinstar,  taitosj_state, init_taitosj,
 GAME( 1983, tinstar2, tinstar,  mcu,      tinstar,  taitosj_state, init_taitosj, ROT0,   "Taito Corporation", "The Tin Star (set 2)", MACHINE_SUPPORTS_SAVE )
 GAME( 1983, waterski, 0,        nomcu,    waterski, taitosj_state, init_taitosj, ROT270, "Taito Corporation", "Water Ski", MACHINE_SUPPORTS_SAVE )
 GAME( 1983, bioatack, 0,        nomcu,    bioatack, taitosj_state, init_taitosj, ROT270, "Taito Corporation (Fox Video Games license)", "Bio Attack", MACHINE_SUPPORTS_SAVE )
-GAME( 1984, sfposeid, 0,        mcu,      sfposeid, taitosj_state, init_taitosj, ROT0,   "Taito Corporation", "Sea Fighter Poseidon", MACHINE_SUPPORTS_SAVE )
+GAME( 1984, sfposeid, 0,        sfposeid, sfposeid, taitosj_state, init_taitosj, ROT0,   "Taito Corporation", "Sea Fighter Poseidon", MACHINE_SUPPORTS_SAVE )
 GAME( 1983, hwrace,   0,        nomcu,    hwrace,   taitosj_state, init_taitosj, ROT270, "Taito Corporation", "High Way Race", MACHINE_SUPPORTS_SAVE )
 GAME( 1984, kikstart, 0,        kikstart, kikstart, taitosj_state, init_taitosj, ROT0,   "Taito Corporation", "Kick Start - Wheelie King", MACHINE_SUPPORTS_SAVE )

@@ -3968,6 +3968,23 @@ void segas16b_state::lockonph(machine_config &config)
 	oki.add_route(ALL_OUTPUTS, "mono", 0.2);
 }
 
+void segas16b_state::aurail(machine_config &config)
+{
+	system16b(config);
+	m_screen->set_raw(MASTER_CLOCK_25MHz/4, 400, 24, 312, 262, 0, 224);
+}
+
+void segas16b_state::riotcity(machine_config &config)
+{
+	system16b(config);
+	m_screen->set_raw(MASTER_CLOCK_25MHz/4, 400, 16, 304, 262, 0, 224);
+}
+
+void segas16b_state::wb3(machine_config &config)
+{
+	system16b_i8751(config);
+	m_screen->set_raw(MASTER_CLOCK_25MHz/4, 400, 16, 304, 262, 0, 224);
+}
 
 //**************************************************************************
 //  GAME-SPECIFIC MACHINE DRIVERS
@@ -9253,7 +9270,7 @@ GAME( 1988, altbeastj3, altbeast, system16b_fd1094,      altbeast, segas16b_stat
 GAME( 1988, altbeast2,  altbeast, system16b_mc8123,      altbeast, segas16b_state, init_altbeas4_5521,      ROT0,   "Sega", "Altered Beast (set 2) (MC-8123B 317-0066)", 0 )
 GAME( 1988, altbeastj1, altbeast, system16b_fd1094,      altbeast, segas16b_state, init_generic_5521,       ROT0,   "Sega", "Juuouki (set 1, Japan) (FD1094 317-0065)", 0 )
 
-GAME( 1990, aurail,     0,        system16b,             aurail,   segas16b_state, init_generic_5704,       ROT0,   "Sega / Westone", "Aurail (set 3, US) (unprotected)", 0 )
+GAME( 1990, aurail,     0,        aurail,                aurail,   segas16b_state, init_generic_5704,       ROT0,   "Sega / Westone", "Aurail (set 3, US) (unprotected)", 0 )
 GAME( 1990, aurail1,    aurail,   system16b_fd1089b,     aurail,   segas16b_state, init_generic_5704,       ROT0,   "Sega / Westone", "Aurail (set 2, World) (FD1089B 317-0168)", 0 )
 GAME( 1990, aurailj,    aurail,   system16b_fd1089a,     aurail,   segas16b_state, init_generic_5704,       ROT0,   "Sega / Westone", "Aurail (set 1, Japan) (FD1089A 317-0167)", 0 )
 
@@ -9306,7 +9323,7 @@ GAME( 1988, passshta,   passsht,  system16b_fd1094,      passshtj, segas16b_stat
 GAME( 1988, passshtj,   passsht,  system16b_fd1094,      passshtj, segas16b_state, init_passshtj_5358,      ROT270, "Sega", "Passing Shot (Japan, 4 Players) (FD1094 317-0070)", 0 )
 GAME( 1988, cencourt,   passsht,  system16b_mc8123,      cencourt, segas16b_state, init_cencourt_5358,      ROT270, "Sega", "Center Court (World, 4 Players, prototype) (MC-8123B)", 0 )
 
-GAME( 1991, riotcity,   0,        system16b,             riotcity, segas16b_state, init_generic_5704,       ROT0,   "Sega / Westone", "Riot City (Japan)", 0 )
+GAME( 1991, riotcity,   0,        riotcity,              riotcity, segas16b_state, init_generic_5704,       ROT0,   "Sega / Westone", "Riot City (Japan)", 0 )
 
 GAME( 1990, ryukyu,     0,        system16b_fd1094,      ryukyu,   segas16b_state, init_generic_5704,       ROT0,   "Success / Sega", "RyuKyu (Japan) (FD1094 317-5023)", 0 )
 GAME( 1990, ryukyua,    ryukyu,   system16b_fd1094,      ryukyu,   segas16b_state, init_generic_5704,       ROT0,   "Success / Sega", "RyuKyu (Japan) (FD1094 317-5023A)", MACHINE_NOT_WORKING ) // decryption key not available
@@ -9339,7 +9356,7 @@ GAME( 1989, tturfu,     tturf,    system16b_i8751,       tturf,    segas16b_stat
 
 GAME( 1996, ultracin,   0,        system16b_5797,        system16b_generic, segas16b_state, init_generic_5797, ROT0,   "Sega", "Waku Waku Ultraman Racing", 0 )
 
-GAME( 1988, wb3,        0,        system16b_i8751,       wb3,      segas16b_state, init_wb3_5704,            ROT0,   "Sega / Westone", "Wonder Boy III - Monster Lair (set 6, World, System 16B) (8751 317-0098)", 0 )
+GAME( 1988, wb3,        0,        wb3,                   wb3,      segas16b_state, init_wb3_5704,            ROT0,   "Sega / Westone", "Wonder Boy III - Monster Lair (set 6, World, System 16B) (8751 317-0098)", 0 )
 GAME( 1988, wb34,       wb3,      system16b_fd1094,      wb3,      segas16b_state, init_generic_5704,        ROT0,   "Sega / Westone", "Wonder Boy III - Monster Lair (set 4, Japan, System 16B) (FD1094 317-0087)", 0 )
 GAME( 1988, wb33,       wb3,      system16b_fd1094,      wb3,      segas16b_state, init_generic_5704,        ROT0,   "Sega / Westone", "Wonder Boy III - Monster Lair (set 3, World, System 16B) (FD1094 317-0089)", 0 )
 GAME( 1988, wb32,       wb3,      system16b_fd1094,      wb3,      segas16b_state, init_generic_5358,        ROT0,   "Sega / Westone", "Wonder Boy III - Monster Lair (set 2, Japan, System 16B) (FD1094 317-0085)", 0 )

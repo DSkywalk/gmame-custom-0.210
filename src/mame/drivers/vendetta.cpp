@@ -436,7 +436,7 @@ void vendetta_state::vendetta(machine_config &config)
 	ADDRESS_MAP_BANK(config, "videobank0").set_map(&vendetta_state::videobank0_map).set_options(ENDIANNESS_BIG, 8, 13, 0x1000);
 	ADDRESS_MAP_BANK(config, "videobank1").set_map(&vendetta_state::videobank1_map).set_options(ENDIANNESS_BIG, 8, 13, 0x1000);
 
-	Z80(config, m_audiocpu, XTAL(3'579'545)); /* verified with PCB */
+	Z80(config, m_audiocpu, XTAL(3'579'545)*2); /* verified with PCB */    // MAMEFX
 	m_audiocpu->set_addrmap(AS_PROGRAM, &vendetta_state::sound_map); /* interrupts are triggered by the main CPU */
 
 	EEPROM_ER5911_8BIT(config, "eeprom");

@@ -50,6 +50,8 @@ public:
 	void mcu(machine_config &config);
 	void nomcu(machine_config &config);
 	void kikstart(machine_config &config);
+	void junglek(machine_config &config);
+	void sfposeid(machine_config &config);
 
 	void init_alpinea();
 	void init_alpine();

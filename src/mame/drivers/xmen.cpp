@@ -318,7 +318,7 @@ void xmen_state::xmen(machine_config &config)
 	m_screen->set_refresh_hz(59.17);   /* verified on pcb */
 	m_screen->set_vblank_time(ATTOSECONDS_IN_USEC(0));
 	m_screen->set_size(64*8, 32*8);
-	m_screen->set_visarea(13*8, (64-13)*8-1, 2*8, 30*8-1 );   /* correct, same issue of tmnt2 */
+	m_screen->set_visarea(14*8, (64-14)*8-1, 2*8, 30*8-1 );   /* correct, same issue of tmnt2 */
 	m_screen->set_screen_update(FUNC(xmen_state::screen_update_xmen));
 	m_screen->set_palette("palette");
 
