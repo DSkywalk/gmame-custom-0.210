@@ -31,6 +31,7 @@ dist.mak
 makefile
 uismall.bdf
 build
+*.log
 *.7z
 mame64
 plugin.ini
