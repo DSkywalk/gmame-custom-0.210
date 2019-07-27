@@ -195,6 +195,7 @@ const options_entry emu_options::s_option_entries[] =
 	{ NULL,                                              NULL,        OPTION_HEADER,     "CUSTOM RGBux OPTIONS" },
 	{ OPTION_CUSTOM_DIFFICULTY ";cdif",                  "none",      OPTION_STRING,     "custom game base difficulty (easiest|easy|medium|hard|hardest) (if not set, used default)" },
 	{ OPTION_CUSTOM_FREEPLAY ";cfpl",                    "none",      OPTION_STRING,     "custom game freeplay (0|1)" },
+	{ OPTION_CUSTOM_CONTINUE ";ccnt",                    "none",      OPTION_STRING,     "custom game continue (0|1)" },
 	{ OPTION_CUSTOMS_FORCED ";cfor", 	                 "0",         OPTION_BOOLEAN,    "force base customizations (ignore any cfg value) " },
 
 

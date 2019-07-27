@@ -320,6 +320,11 @@ bool sglob(const char* s, const char* glob)
 	return !*s && !*glob;
 }
 
+// ENABLE/DISABLE STRINGS
+
+const char* NAME_ON[] = { "On", "Yes", 0 };
+const char* NAME_OFF[] = { "Off", "No", 0 };
+
 
 // CUSTOM DIFFICULT CODE
 
@@ -347,6 +352,7 @@ void configuration_manager::custom_settings()
 	//config_customize_language(context, list);
 	config_customize_difficulty(machine().options().custom_difficulty());
 	config_customize_freeplay(machine().options().custom_freeplay());
+	config_customize_continue(machine().options().custom_continue());
 }
 
 void set_difficulty(int misc_difficulty, ioport_field &found, int steps) {
@@ -505,24 +511,20 @@ void configuration_manager::config_customize_difficulty(const char * name_diffic
 		}
 
 	osd_printf_warning("emu:custom_difficulty: dip switch not found");
-	return;
-   
+  
 }
 
 // FREEPLAY CODE
 
-const char* NAME_ON[] = { "On", "Yes", 0 };
-const char* NAME_OFF[] = { "Off", "No", 0 };
-
-void set_freeplay_value(ioport_field &found, const char* name, int value) {
-	osd_printf_debug("emu:custom_freeplay: match Found: %s switch! set(%i)\n", name, value);
+void set_custom_value(ioport_field &found, const char* name, int value) {
+	osd_printf_debug("emu:custom_misc: match Found: %s switch! set(%i)\n", name, value);
 	ioport_field::user_settings settings;
 	found.get_user_settings(settings);
 	settings.value = value;
 	found.set_user_settings(settings);
 }
 
-void set_freeplay_field(int misc_freeplay, ioport_field &found) {
+void set_custom_field(int misc_freeplay, ioport_field &found) {
 	const char** names;
 
 	// get the list of names
@@ -544,11 +546,13 @@ void set_freeplay_field(int misc_freeplay, ioport_field &found) {
 			osd_printf_debug("set: name=\"%s\" number=\"%u\"\n", util::xml::normalize_string(iop.name()), iop.value());
 			if (strcmp(names[j], iop.name())==0)
 			{
-				set_freeplay_value(found, iop.name(), iop.value());
+				set_custom_value(found, iop.name(), iop.value());
 				return;
 			}
 			
 		}
+
+	osd_printf_warning("emu:custom_misc: dip switch - value not found");
 }
 
 
@@ -578,7 +582,7 @@ void configuration_manager::config_customize_freeplay(const char * value_freepla
 			const char *name = field.name();
 			if (name != NULL && ((sglob(name, "Free?Play") || sglob(name, "*Free?Play*"))) )
 			{   
-				set_freeplay_field(misc_freeplay, field);
+				set_custom_field(misc_freeplay, field);
 				return ;
 			}
 			
@@ -588,11 +592,57 @@ void configuration_manager::config_customize_freeplay(const char * value_freepla
 				osd_printf_debug("set: name=\"%s\" number=\"%u\"\n", util::xml::normalize_string(iop.name()), iop.value());
 				if (sglob(iop.name(), "Free?Play") || sglob(iop.name(), "*Free?Play*"))
 				{
-					set_freeplay_value(field, iop.name(), iop.value());
+					set_custom_value(field, iop.name(), iop.value());
 					return ;
 				}
 			}
 		}
 
+	osd_printf_warning("emu:custom_freeplay: dip switch not found");
 }
+
+
+/**
+ * User customization of the continue dipswitch.
+ */
+void configuration_manager::config_customize_continue(const char * value_continue)
+{
+	int misc_continue = -1;
+	if (core_stricmp(value_continue, "0") == 0)
+		misc_continue = 0;
+	if (core_stricmp(value_continue, "1") == 0)
+		misc_continue = 1;
+
+	if(misc_continue == -1)
+		return;
+
+	osd_printf_debug("emu:custom_continue: dif:%s(%i)\n", value_continue, misc_continue);
+
+	for (auto &port : machine().ioport().ports())
+		for (ioport_field &field : port.second->fields())
+		{
+			if (field.type() != IPT_DIPSWITCH)
+				continue;
+
+			const char *name = field.name();
+			// >> Allow Continue ==> Yes/No
+			if (name != NULL && strcmp(name, "Allow Continue") == 0)
+			{   
+				set_custom_field(misc_continue, field);
+				return ;
+			}
+			
+			// >> Continues|Continue? ==> Yes/No/Others values
+			if (name != NULL && sglob(name, "Continue?") )
+			{   
+				set_custom_field(misc_continue, field);
+				return ;
+			}
+			
+		}
+		
+	osd_printf_warning("emu:custom_continue: dip switch not found");
+
+}
+
 

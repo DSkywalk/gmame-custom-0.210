@@ -69,6 +69,7 @@ private:
 	void custom_settings();
 	void config_customize_difficulty(const char * name_difficulty);
 	void config_customize_freeplay(const char * value_freeplay);
+	void config_customize_continue(const char * value_continue);
 
 	// internal state
 	running_machine &   m_machine;                  // reference to our machine
