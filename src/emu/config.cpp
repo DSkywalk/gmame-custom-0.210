@@ -279,6 +279,51 @@ int configuration_manager::save_xml(emu_file &file, config_type which_type)
  *   FUNCTION AGES MOD
  **************************************************************************/
 
+/**
+ * Match a glob pattern to a string - function from advmame project
+ * \param s String to compare.
+ * \param glob Pattern to use. The glob chars * and ? are allowed. You can prefix
+ * these char with a backslash to prevent globbing expansion.
+ * \return If the pattern match.
+ */
+bool sglob(const char* s, const char* glob)
+{
+	while (*s && *glob) {
+		if (*glob == '*') {
+			if (sglob(s, glob+1))
+				return 1;
+			++s;
+			continue;
+		}
+
+		if (*glob == '?') {
+			++glob;
+			++s;
+			continue;
+		}
+
+		if (glob[0] == '\\' && (glob[1] == '\\' || glob[1] == '*' || glob[1] == '?')) {
+			++glob;
+	    }
+
+		if (*glob != *s) {
+			return 0;
+		}
+
+		++glob;
+		++s;
+	}
+
+	while (*glob == '*')
+		++glob;
+
+	return !*s && !*glob;
+}
+
+
+// CUSTOM DIFFICULT CODE
+
+
 /** Difficult level (enumeration). */
 /*@{*/
 #define DIFFICULTY_NONE -1 /**< Don't change the value stored in the .cfg file. */
@@ -301,7 +346,7 @@ void configuration_manager::custom_settings()
 {
 	//config_customize_language(context, list);
 	config_customize_difficulty(machine().options().custom_difficulty());
-	//config_customize_freeplay(machine().m_portlist);
+	config_customize_freeplay(machine().options().custom_freeplay());
 }
 
 void set_difficulty(int misc_difficulty, ioport_field &found, int steps) {
@@ -462,5 +507,92 @@ void configuration_manager::config_customize_difficulty(const char * name_diffic
 	osd_printf_warning("emu:custom_difficulty: dip switch not found");
 	return;
    
+}
+
+// FREEPLAY CODE
+
+const char* NAME_ON[] = { "On", "Yes", 0 };
+const char* NAME_OFF[] = { "Off", "No", 0 };
+
+void set_freeplay_value(ioport_field &found, const char* name, int value) {
+	osd_printf_debug("emu:custom_freeplay: match Found: %s switch! set(%i)\n", name, value);
+	ioport_field::user_settings settings;
+	found.get_user_settings(settings);
+	settings.value = value;
+	found.set_user_settings(settings);
+}
+
+void set_freeplay_field(int misc_freeplay, ioport_field &found) {
+	const char** names;
+
+	// get the list of names
+	switch (misc_freeplay) {
+		case 1:
+			names = NAME_ON;
+			break;
+		case 0:
+			names = NAME_OFF;
+			break;
+		default:
+			// nothing to do
+			return;
+	}
+
+	for(int j = 0; names[j] ; ++j)
+		for (ioport_setting const &iop : found.settings())
+		{
+			osd_printf_debug("set: name=\"%s\" number=\"%u\"\n", util::xml::normalize_string(iop.name()), iop.value());
+			if (strcmp(names[j], iop.name())==0)
+			{
+				set_freeplay_value(found, iop.name(), iop.value());
+				return;
+			}
+			
+		}
+}
+
+
+/**
+ * User customization of the freeplay dipswitch.
+ */
+void configuration_manager::config_customize_freeplay(const char * value_freeplay)
+{
+
+	int misc_freeplay = -1;
+	if (core_stricmp(value_freeplay, "0") == 0)
+		misc_freeplay = 0;
+	if (core_stricmp(value_freeplay, "1") == 0)
+		misc_freeplay = 1;
+
+	if(misc_freeplay == -1)
+		return;
+
+	osd_printf_debug("emu:custom_freeplay: dif:%s(%i)\n", value_freeplay, misc_freeplay);
+
+	for (auto &port : machine().ioport().ports())
+		for (ioport_field &field : port.second->fields())
+		{
+			if (field.type() != IPT_DIPSWITCH)
+				continue;
+
+			const char *name = field.name();
+			if (name != NULL && ((sglob(name, "Free?Play") || sglob(name, "*Free?Play*"))) )
+			{   
+				set_freeplay_field(misc_freeplay, field);
+				return ;
+			}
+			
+			//puede haber field Free*Play tambien...
+			for (ioport_setting const &iop : field.settings())
+			{
+				osd_printf_debug("set: name=\"%s\" number=\"%u\"\n", util::xml::normalize_string(iop.name()), iop.value());
+				if (sglob(iop.name(), "Free?Play") || sglob(iop.name(), "*Free?Play*"))
+				{
+					set_freeplay_value(field, iop.name(), iop.value());
+					return ;
+				}
+			}
+		}
+
 }
 

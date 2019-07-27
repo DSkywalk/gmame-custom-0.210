@@ -163,6 +163,7 @@
 
 // ages customs configs
 #define OPTION_CUSTOM_DIFFICULTY    "custom_difficulty"
+#define OPTION_CUSTOM_FREEPLAY      "custom_freeplay"
 #define OPTION_CUSTOMS_FORCED       "customs_forced"
 
 // core misc options
@@ -481,6 +482,7 @@ public:
 
 	//ages customs configs
 	const char *custom_difficulty() const { return value(OPTION_CUSTOM_DIFFICULTY); }
+	const char *custom_freeplay() const { return value(OPTION_CUSTOM_FREEPLAY); }
 	bool customs_forced() const { return bool_value(OPTION_CUSTOMS_FORCED); }
 
 	// core misc options
